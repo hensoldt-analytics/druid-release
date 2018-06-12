@@ -114,8 +114,12 @@ public class HdfsDataSegmentPusher implements DataSegmentPusher
 
     final long size;
     final DataSegment dataSegment;
-    try (FSDataOutputStream out = fs.create(tmpIndexFile)) {
-      size = CompressionUtils.zip(inDir, out);
+    try {
+      try (FSDataOutputStream out = fs.create(tmpIndexFile)) {
+        size = CompressionUtils.zip(inDir, out);
+      }
+
+      final String uniquePrefix = useUniquePath ? DataSegmentPusher.generateUniquePath() + "_" : "";
       final Path outIndexFile = new Path(StringUtils.format(
           "%s/%s/%d_index.zip",
           fullyQualifiedStorageDirectory,
