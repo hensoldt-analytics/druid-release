@@ -110,6 +110,12 @@
       <artifactId>hadoop-client</artifactId>
       <version>${hadoop.compile.version}</version>
       <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-collections</groupId>
+          <artifactId>commons-collections</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- Tests -->
     <dependency>
