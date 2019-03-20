@@ -135,7 +135,7 @@ public class PullDependencies implements Runnable
   );
 
   private static final List<String> DEFAULT_REMOTE_REPOSITORIES = ImmutableList.of(
-      "https://repo1.maven.org/maven2/"
+      "https://repo1.maven.org/maven2/", "http://172.27.44.203/nexus/content/groups/public"
   );
 
   private TeslaAether aether;
