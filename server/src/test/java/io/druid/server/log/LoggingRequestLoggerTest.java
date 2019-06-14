@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableMap;
 import io.druid.jackson.DefaultObjectMapper;
 import io.druid.java.util.common.DateTimes;
 import io.druid.java.util.common.Intervals;
+import io.druid.java.util.common.StringUtils;
 import io.druid.java.util.common.jackson.JacksonUtils;
 import io.druid.query.BaseQuery;
 import io.druid.query.DataSource;
@@ -40,7 +41,10 @@ import io.druid.server.RequestLogLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.OutputStreamAppender;
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.json.JsonConfiguration;
 import org.apache.logging.log4j.core.layout.JsonLayout;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
@@ -99,7 +103,20 @@ public class LoggingRequestLoggerTest
         .newBuilder()
         .setName("test stream")
         .setTarget(baos)
-        .setLayout(JsonLayout.createLayout(false, true, false, true, true, Charsets.UTF_8))
+        .setLayout(
+            JsonLayout.newBuilder()
+                      .setConfiguration(new JsonConfiguration(
+                          LoggerContext.getContext(),
+                          ConfigurationSource.NULL_SOURCE
+                      ))
+                      .setLocationInfo(false)
+                      .setProperties(true)
+                      .setPropertiesAsList(true)
+                      .setComplete(false)
+                      .setCharset(Charsets.UTF_8)
+                      .setCompact(true)
+                      .setEventEol(true)
+                      .build())
         .build();
     final Logger logger = (Logger)
         LogManager.getLogger(LoggingRequestLogger.class);
@@ -134,7 +151,9 @@ public class LoggingRequestLoggerTest
   {
     final LoggingRequestLogger requestLogger = new LoggingRequestLogger(new DefaultObjectMapper(), true, false);
     requestLogger.log(logLine);
-    final Map<String, Object> map = readContextMap(baos.toByteArray());
+    byte[] bytes = baos.toByteArray();
+    final Map<String, Object> map = readContextMap(bytes);
+    System.out.println("bytes" + StringUtils.fromUtf8(bytes));
     Assert.assertEquals("datasource", map.get("dataSource"));
     Assert.assertEquals("PT86400S", map.get("duration"));
     Assert.assertEquals("false", map.get("hasFilters"));
