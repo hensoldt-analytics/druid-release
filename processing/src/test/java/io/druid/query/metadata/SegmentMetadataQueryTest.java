@@ -307,7 +307,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -375,7 +375,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -443,7 +443,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -560,7 +560,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -612,7 +612,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -674,7 +674,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -732,7 +732,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -790,7 +790,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 Lists.<QueryRunner<SegmentAnalysis>>newArrayList(
                     toolChest.preMergeQueryDecoration(runner1),
                     toolChest.preMergeQueryDecoration(runner2)
@@ -835,7 +835,7 @@ public class SegmentMetadataQueryTest
     QueryRunner myRunner = new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             FACTORY.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 //Note: It is essential to have atleast 2 query runners merged to reproduce the regression bug described in
                 //https://github.com/druid-io/druid/pull/1172
                 //the bug surfaces only when ordering is used which happens only when you have 2 things to compare

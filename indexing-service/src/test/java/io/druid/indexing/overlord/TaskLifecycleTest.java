@@ -598,7 +598,7 @@ public class TaskLifecycleTest
         EasyMock.createNiceMock(DataSegmentServerAnnouncer.class),
         handoffNotifierFactory,
         () -> queryRunnerFactoryConglomerate, // query runner factory conglomerate corporation unionized collective
-        MoreExecutors.sameThreadExecutor(), // query executor service
+        MoreExecutors.newDirectExecutorService(), // query executor service
         monitorScheduler, // monitor scheduler
         new SegmentLoaderFactory(
             new SegmentLoaderLocalCacheManager(null, segmentLoaderConfig, new DefaultObjectMapper())

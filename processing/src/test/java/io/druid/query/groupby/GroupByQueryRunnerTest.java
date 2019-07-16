@@ -425,7 +425,7 @@ public class GroupByQueryRunnerTest
   {
     this.config = config;
     this.factory = factory;
-    this.runner = factory.mergeRunners(MoreExecutors.sameThreadExecutor(), ImmutableList.<QueryRunner<Row>>of(runner));
+    this.runner = factory.mergeRunners(MoreExecutors.newDirectExecutorService(), ImmutableList.<QueryRunner<Row>>of(runner));
   }
 
   @Test
@@ -9576,14 +9576,14 @@ public class GroupByQueryRunnerTest
     );
 
     ChainedExecutionQueryRunner ceqr = new ChainedExecutionQueryRunner(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.newDirectExecutorService(),
         (query1, future) -> {
           return;
         },
         ImmutableList.<QueryRunner<Row>>of(runner, runner)
     );
 
-    QueryRunner<Row> mergingRunner = factory.mergeRunners(MoreExecutors.sameThreadExecutor(), ImmutableList.<QueryRunner<Row>>of(ceqr));
+    QueryRunner<Row> mergingRunner = factory.mergeRunners(MoreExecutors.newDirectExecutorService(), ImmutableList.<QueryRunner<Row>>of(ceqr));
 
     Iterable<Row> results = GroupByQueryRunnerTestHelper.runQuery(factory, mergingRunner, query);
     TestHelper.assertExpectedObjects(expectedResults, results, "");

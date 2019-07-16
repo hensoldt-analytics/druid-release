@@ -85,8 +85,8 @@ public class KafkaSimpleConsumer
     for (String broker : brokers) {
       HostAndPort brokerHostAndPort = HostAndPort.fromString(broker);
       Preconditions.checkArgument(
-          brokerHostAndPort.getHostText() != null &&
-          !brokerHostAndPort.getHostText().isEmpty() &&
+          brokerHostAndPort.getHost() != null &&
+          !brokerHostAndPort.getHost().isEmpty() &&
           brokerHostAndPort.hasPort(),
           "kafka broker [%s] is not valid, must be <host>:<port>",
           broker
@@ -306,7 +306,7 @@ public class KafkaSimpleConsumer
       SimpleConsumer consumer = null;
       try {
         log.info("Finding new leader from Kafka brokers, try broker [%s]", broker.toString());
-        consumer = new SimpleConsumer(broker.getHostText(), broker.getPort(), SO_TIMEOUT, BUFFER_SIZE, leaderLookupClientId);
+        consumer = new SimpleConsumer(broker.getHost(), broker.getPort(), SO_TIMEOUT, BUFFER_SIZE, leaderLookupClientId);
         TopicMetadataResponse resp = consumer.send(new TopicMetadataRequest(Collections.singletonList(topic)));
 
         List<TopicMetadata> metaData = resp.topicsMetadata();

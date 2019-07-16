@@ -622,7 +622,7 @@ public class IndexGeneratorJob implements Jobby
           );
           persistExecutor = MoreExecutors.listeningDecorator(executorService);
         } else {
-          persistExecutor = MoreExecutors.sameThreadExecutor();
+          persistExecutor = MoreExecutors.newDirectExecutorService();
         }
 
         for (final BytesWritable bw : values) {

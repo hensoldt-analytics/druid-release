@@ -224,7 +224,7 @@ public class SpecificSegmentsQuerySegmentWalker implements QuerySegmentWalker, C
     return new FinalizeResultsQueryRunner<>(
         toolChest.mergeResults(
             factory.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 FunctionalIterable
                     .create(specs)
                     .transformCat(

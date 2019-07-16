@@ -152,7 +152,7 @@ public class ServerManagerTest
         },
         new NoopServiceEmitter(),
         serverManagerExec,
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.newDirectExecutorService(),
         new DefaultObjectMapper(),
         new LocalCacheProvider().get(),
         new CacheConfig(),

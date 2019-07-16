@@ -235,7 +235,7 @@ public class WorkerTaskMonitor
             // do nothing
           }
         },
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.directExecutor()
     );
   }
 
@@ -257,7 +257,8 @@ public class WorkerTaskMonitor
           {
             notices.add(new StatusNotice(task, TaskStatus.failure(task.getId())));
           }
-        }
+        },
+        MoreExecutors.directExecutor()
     );
   }
 

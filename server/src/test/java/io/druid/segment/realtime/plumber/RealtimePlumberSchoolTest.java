@@ -221,7 +221,7 @@ public class RealtimePlumberSchoolTest
         announcer,
         segmentPublisher,
         handoffNotifierFactory,
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.newDirectExecutorService(),
         TestHelper.getTestIndexMergerV9(segmentWriteOutMediumFactory),
         TestHelper.getTestIndexIO(segmentWriteOutMediumFactory),
         MapCache.create(0),

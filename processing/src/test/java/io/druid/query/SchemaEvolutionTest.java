@@ -109,7 +109,7 @@ public class SchemaEvolutionTest
     final Sequence<T> results = new FinalizeResultsQueryRunner<>(
         factory.getToolchest().mergeResults(
             factory.mergeRunners(
-                MoreExecutors.sameThreadExecutor(),
+                MoreExecutors.newDirectExecutorService(),
                 FunctionalIterable
                     .create(indexes)
                     .transform(

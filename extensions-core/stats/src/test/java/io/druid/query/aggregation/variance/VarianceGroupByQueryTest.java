@@ -73,7 +73,7 @@ public class VarianceGroupByQueryTest
     this.testName = testName;
     this.config = config;
     this.factory = factory;
-    this.runner = factory.mergeRunners(MoreExecutors.sameThreadExecutor(), ImmutableList.<QueryRunner<Row>>of(runner));
+    this.runner = factory.mergeRunners(MoreExecutors.newDirectExecutorService(), ImmutableList.<QueryRunner<Row>>of(runner));
   }
 
   @Test

@@ -201,7 +201,7 @@ public class SinkQuerySegmentWalker implements QuerySegmentWalker
                                         sinkSegmentIdentifier,
                                         descriptor.getInterval().getStart(),
                                         factory.mergeRunners(
-                                            MoreExecutors.sameThreadExecutor(),
+                                            MoreExecutors.newDirectExecutorService(),
                                             Iterables.transform(
                                                 theSink,
                                                 new Function<FireHydrant, QueryRunner<T>>()
@@ -235,7 +235,7 @@ public class SinkQuerySegmentWalker implements QuerySegmentWalker
                                                             cache,
                                                             toolChest,
                                                             baseRunner,
-                                                            MoreExecutors.sameThreadExecutor(),
+                                                            MoreExecutors.newDirectExecutorService(),
                                                             cacheConfig
                                                         );
                                                       } else {

@@ -50,7 +50,7 @@ public class WithEffectSequenceTest
                 effect1.set(counter.incrementAndGet());
               }
             },
-            MoreExecutors.sameThreadExecutor()
+            MoreExecutors.directExecutor()
         ),
         new Runnable()
         {
@@ -60,7 +60,7 @@ public class WithEffectSequenceTest
             effect2.set(counter.incrementAndGet());
           }
         },
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.directExecutor()
     );
     // Run sequence via accumulate
     Sequences.toList(sequence, new ArrayList<Integer>());
@@ -98,7 +98,7 @@ public class WithEffectSequenceTest
       {
         effectExecuted.set(true);
       }
-    }, MoreExecutors.sameThreadExecutor());
+    }, MoreExecutors.directExecutor());
     try {
       Sequences.toList(seqWithEffect, new ArrayList<Integer>());
       Assert.fail("expected RuntimeException");

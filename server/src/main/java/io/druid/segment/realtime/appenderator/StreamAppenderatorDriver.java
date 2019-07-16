@@ -20,11 +20,9 @@
 package io.druid.segment.realtime.appenderator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import com.google.common.base.Throwables;
-import com.google.common.util.concurrent.AsyncFunction;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -260,22 +258,24 @@ public class StreamAppenderatorDriver extends BaseAppenderatorDriver
         .map(SegmentWithState::getSegmentIdentifier)
         .collect(Collectors.toList());
 
-    final ListenableFuture<SegmentsAndMetadata> publishFuture = Futures.transform(
+    final ListenableFuture<SegmentsAndMetadata> publishFuture = Futures.transformAsync(
         pushInBackground(wrapCommitter(committer), theSegments),
-        (AsyncFunction<SegmentsAndMetadata, SegmentsAndMetadata>) segmentsAndMetadata -> publishInBackground(
+        segmentsAndMetadata -> publishInBackground(
             segmentsAndMetadata,
             publisher
-        )
+        ),
+        MoreExecutors.directExecutor()
     );
 
     return Futures.transform(
         publishFuture,
-        (Function<SegmentsAndMetadata, SegmentsAndMetadata>) segmentsAndMetadata -> {
+        segmentsAndMetadata -> {
           synchronized (segments) {
             sequenceNames.forEach(segments::remove);
           }
           return segmentsAndMetadata;
-        }
+        },
+        MoreExecutors.directExecutor()
     );
   }
 
@@ -322,7 +322,7 @@ public class StreamAppenderatorDriver extends BaseAppenderatorDriver
                 segmentIdentifier.getVersion(),
                 segmentIdentifier.getShardSpec().getPartitionNum()
             ),
-            MoreExecutors.sameThreadExecutor(),
+            MoreExecutors.directExecutor(),
             () -> {
               log.info("Segment[%s] successfully handed off, dropping.", segmentIdentifier);
               metrics.incrementHandOffCount();
@@ -353,7 +353,8 @@ public class StreamAppenderatorDriver extends BaseAppenderatorDriver
                       numRemainingHandoffSegments.decrementAndGet();
                       resultFuture.setException(e);
                     }
-                  }
+                  },
+                  MoreExecutors.directExecutor()
               );
             }
         );
@@ -369,9 +370,10 @@ public class StreamAppenderatorDriver extends BaseAppenderatorDriver
       final Collection<String> sequenceNames
   )
   {
-    return Futures.transform(
+    return Futures.transformAsync(
         publish(publisher, committer, sequenceNames),
-        this::registerHandoff
+        this::registerHandoff,
+        MoreExecutors.directExecutor()
     );
   }
 

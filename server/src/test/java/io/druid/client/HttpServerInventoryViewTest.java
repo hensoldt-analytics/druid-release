@@ -196,7 +196,7 @@ public class HttpServerInventoryViewTest
     );
 
     httpServerInventoryView.registerSegmentCallback(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.directExecutor(),
         new ServerView.SegmentCallback()
         {
           @Override
@@ -228,7 +228,7 @@ public class HttpServerInventoryViewTest
 
     final CountDownLatch serverRemovedCalled = new CountDownLatch(1);
     httpServerInventoryView.registerServerRemovedCallback(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.directExecutor(),
         new ServerView.ServerRemovedCallback()
         {
           @Override

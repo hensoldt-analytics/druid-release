@@ -332,7 +332,7 @@ public class CachingClusteredClientTest
     timeline = new VersionedIntervalTimeline<>(Ordering.<String>natural());
     serverView = EasyMock.createNiceMock(TimelineServerView.class);
     cache = MapCache.create(100000);
-    client = makeClient(MoreExecutors.sameThreadExecutor());
+    client = makeClient(MoreExecutors.newDirectExecutorService());
 
     servers = new DruidServer[]{
         new DruidServer("test1", "test1", null, 10, ServerType.HISTORICAL, "bye", 0),
@@ -360,7 +360,7 @@ public class CachingClusteredClientTest
       final ListeningExecutorService delegate = MoreExecutors.listeningDecorator(
           // we need to run everything in the same thread to ensure all callbacks on futures in CachingClusteredClient
           // are complete before moving on to the next query run.
-          MoreExecutors.sameThreadExecutor()
+          MoreExecutors.newDirectExecutorService()
       );
 
       @Override
@@ -397,7 +397,8 @@ public class CachingClusteredClientTest
                   {
                     pair.lhs.setException(t);
                   }
-                }
+                },
+                MoreExecutors.directExecutor()
             );
           }
         }
@@ -581,7 +582,7 @@ public class CachingClusteredClientTest
             .andReturn(ImmutableMap.<Cache.NamedKey, byte[]>of())
             .once();
     EasyMock.replay(cache);
-    client = makeClient(MoreExecutors.sameThreadExecutor(), cache, limit);
+    client = makeClient(MoreExecutors.newDirectExecutorService(), cache, limit);
     final DruidServer lastServer = servers[random.nextInt(servers.length)];
     final DataSegment dataSegment = EasyMock.createNiceMock(DataSegment.class);
     EasyMock.expect(dataSegment.getIdentifier()).andReturn(DATA_SOURCE).anyTimes();
@@ -606,7 +607,7 @@ public class CachingClusteredClientTest
             .andReturn(ImmutableMap.<Cache.NamedKey, byte[]>of())
             .once();
     EasyMock.replay(cache);
-    client = makeClient(MoreExecutors.sameThreadExecutor(), cache, 0);
+    client = makeClient(MoreExecutors.newDirectExecutorService(), cache, 0);
     getDefaultQueryRunner().run(QueryPlus.wrap(query), context);
     EasyMock.verify(cache);
     EasyMock.verify(dataSegment);

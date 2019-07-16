@@ -525,7 +525,7 @@ public class AggregationTestHelper
             toolChest.mergeResults(
                 toolChest.preMergeQueryDecoration(
                     factory.mergeRunners(
-                        MoreExecutors.sameThreadExecutor(),
+                        MoreExecutors.newDirectExecutorService(),
                         Lists.transform(
                             segments,
                             new Function<Segment, QueryRunner>()

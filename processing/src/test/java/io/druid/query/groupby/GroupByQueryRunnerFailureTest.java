@@ -178,7 +178,7 @@ public class GroupByQueryRunnerFailureTest
 
   public GroupByQueryRunnerFailureTest(QueryRunner<Row> runner)
   {
-    this.runner = factory.mergeRunners(MoreExecutors.sameThreadExecutor(), ImmutableList.of(runner));
+    this.runner = factory.mergeRunners(MoreExecutors.newDirectExecutorService(), ImmutableList.of(runner));
   }
 
   @Test(timeout = 10000)

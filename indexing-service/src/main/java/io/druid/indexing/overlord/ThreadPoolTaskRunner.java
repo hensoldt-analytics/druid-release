@@ -287,7 +287,8 @@ public class ThreadPoolTaskRunner implements TaskRunner, QuerySegmentWalker
           {
             runningItems.remove(taskRunnerWorkItem);
           }
-        }
+        },
+        MoreExecutors.directExecutor()
     );
 
     return statusFuture;

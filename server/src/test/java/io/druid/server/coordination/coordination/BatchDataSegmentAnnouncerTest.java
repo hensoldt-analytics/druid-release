@@ -95,7 +95,7 @@ public class BatchDataSegmentAnnouncerTest
 
     announcer = new Announcer(
         cf,
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.newDirectExecutorService()
     );
     announcer.start();
 

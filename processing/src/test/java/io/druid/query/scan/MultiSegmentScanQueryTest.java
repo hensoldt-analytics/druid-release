@@ -194,7 +194,7 @@ public class MultiSegmentScanQueryTest
   {
     ScanQuery query = newBuilder().build();
     List<ScanResultValue> results = Sequences.toList(
-        factory.mergeRunners(MoreExecutors.sameThreadExecutor(), ImmutableList.of(
+        factory.mergeRunners(MoreExecutors.newDirectExecutorService(), ImmutableList.of(
             factory.createRunner(segment0),
             factory.createRunner(segment1)
         )).run(QueryPlus.wrap(query), new HashMap<String, Object>()),

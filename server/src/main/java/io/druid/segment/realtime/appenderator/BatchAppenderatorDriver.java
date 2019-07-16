@@ -24,6 +24,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import io.druid.data.input.InputRow;
 import io.druid.java.util.common.ISE;
 import io.druid.segment.realtime.appenderator.SegmentWithState.SegmentState;
@@ -132,9 +133,10 @@ public class BatchAppenderatorDriver extends BaseAppenderatorDriver
         .map(SegmentWithState::getSegmentIdentifier)
         .collect(Collectors.toList());
 
-    final ListenableFuture<SegmentsAndMetadata> future = Futures.transform(
+    final ListenableFuture<SegmentsAndMetadata> future = Futures.transformAsync(
         pushInBackground(null, segmentIdentifierList),
-        this::dropInBackground
+        this::dropInBackground,
+        MoreExecutors.directExecutor()
     );
 
     final SegmentsAndMetadata segmentsAndMetadata = pushAndClearTimeoutMs == 0L ?

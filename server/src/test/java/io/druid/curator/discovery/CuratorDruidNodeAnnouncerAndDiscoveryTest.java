@@ -69,7 +69,7 @@ public class CuratorDruidNodeAnnouncerAndDiscoveryTest extends CuratorTestBase
 
     Announcer announcer = new Announcer(
         curator,
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.newDirectExecutorService()
     );
     announcer.start();
 

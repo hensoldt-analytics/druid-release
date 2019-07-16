@@ -80,7 +80,7 @@ public class DruidProcessingModule implements Module
               .build()
       );
     } else {
-      return MoreExecutors.sameThreadExecutor();
+      return MoreExecutors.newDirectExecutorService();
     }
   }
 

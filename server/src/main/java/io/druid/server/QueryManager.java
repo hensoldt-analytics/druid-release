@@ -76,7 +76,7 @@ public class QueryManager implements QueryWatcher
             }
           }
         },
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.directExecutor()
     );
   }
 

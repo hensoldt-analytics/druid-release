@@ -33,6 +33,7 @@ import com.google.common.io.ByteSource;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import io.druid.java.util.emitter.service.ServiceEmitter;
 import io.druid.java.util.http.client.HttpClient;
 import io.druid.java.util.http.client.Request;
@@ -497,7 +498,8 @@ public class DirectDruidClient<T> implements QueryRunner<T>
                 }
               }
             }
-          }
+          },
+          MoreExecutors.directExecutor()
       );
     }
     catch (IOException e) {

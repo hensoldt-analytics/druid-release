@@ -25,6 +25,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.inject.Inject;
 import io.druid.java.util.emitter.EmittingLogger;
 import io.druid.java.util.common.concurrent.Execs;
@@ -200,7 +201,8 @@ public class ExecutorLifecycle
               throw Throwables.propagate(e);
             }
           }
-        }
+        },
+        MoreExecutors.directExecutor()
     );
   }
 

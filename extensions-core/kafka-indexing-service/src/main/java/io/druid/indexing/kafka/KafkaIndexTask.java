@@ -753,7 +753,8 @@ public class KafkaIndexTask extends AbstractTask implements ChatHandler
                           log.error("Persist failed, dying");
                           throwableAtomicReference.set(t);
                         }
-                      }
+                      },
+                      MoreExecutors.directExecutor()
                   );
                 }
               }
