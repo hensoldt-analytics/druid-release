@@ -31,6 +31,7 @@ import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.Inject;
 import io.druid.java.util.emitter.EmittingLogger;
@@ -507,7 +508,8 @@ public class TaskQueue
                  .emit();
             }
           }
-        }
+        },
+        MoreExecutors.directExecutor()
     );
     return statusFuture;
   }

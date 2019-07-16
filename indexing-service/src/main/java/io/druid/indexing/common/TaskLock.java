@@ -21,6 +21,7 @@ package io.druid.indexing.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import org.joda.time.Interval;
@@ -153,7 +154,7 @@ public class TaskLock
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
                   .add("type", type)
                   .add("groupId", groupId)
                   .add("dataSource", dataSource)

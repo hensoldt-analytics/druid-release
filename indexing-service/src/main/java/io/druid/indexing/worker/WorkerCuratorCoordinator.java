@@ -77,7 +77,7 @@ public class WorkerCuratorCoordinator
     this.curatorFramework = curatorFramework;
     this.worker = worker;
 
-    this.announcer = new Announcer(curatorFramework, MoreExecutors.sameThreadExecutor());
+    this.announcer = new Announcer(curatorFramework, MoreExecutors.newDirectExecutorService());
 
     this.baseAnnouncementsPath = getPath(Arrays.asList(indexerZkConfig.getAnnouncementsPath(), worker.getHost()));
     this.baseTaskPath = getPath(Arrays.asList(indexerZkConfig.getTasksPath(), worker.getHost()));

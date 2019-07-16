@@ -548,7 +548,7 @@ public class KafkaSupervisor implements Supervisor
             {
               notices.add(new RunNotice());
             }
-          }, MoreExecutors.sameThreadExecutor()
+          }, MoreExecutors.directExecutor()
       );
 
       listenerRegistered = true;
@@ -1154,7 +1154,8 @@ public class KafkaSupervisor implements Supervisor
               killTask(taskId);
               taskGroup.tasks.remove(taskId);
             }
-          }
+          },
+          MoreExecutors.directExecutor()
       );
     }
 
@@ -1442,7 +1443,8 @@ public class KafkaSupervisor implements Supervisor
                 {
                   return null;
                 }
-              }
+              },
+              MoreExecutors.directExecutor()
           );
         }
 
@@ -1954,7 +1956,8 @@ public class KafkaSupervisor implements Supervisor
             }
             return null;
           }
-        }
+        },
+        MoreExecutors.directExecutor()
     );
   }
 
@@ -2174,7 +2177,8 @@ public class KafkaSupervisor implements Supervisor
               }
 
               return null;
-            }
+            },
+            MoreExecutors.directExecutor()
         )
     ).collect(Collectors.toList());
 

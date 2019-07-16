@@ -142,7 +142,7 @@ public class DruidSchema extends AbstractSchema
     this.escalator = escalator;
 
     serverView.registerTimelineCallback(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.directExecutor(),
         new TimelineServerView.TimelineCallback()
         {
           @Override

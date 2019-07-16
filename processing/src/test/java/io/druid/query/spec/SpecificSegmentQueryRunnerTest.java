@@ -164,7 +164,7 @@ public class SpecificSegmentQueryRunnerTest
                     throw new SegmentMissingException("FAILSAUCE");
                   }
                 },
-                MoreExecutors.sameThreadExecutor()
+                MoreExecutors.directExecutor()
             );
           }
         },

@@ -107,7 +107,7 @@ public class CachingQueryRunnerTest
     if (numBackgroundThreads > 0) {
       backgroundExecutorService = Executors.newFixedThreadPool(numBackgroundThreads);
     } else {
-      backgroundExecutorService = MoreExecutors.sameThreadExecutor();
+      backgroundExecutorService = MoreExecutors.newDirectExecutorService();
     }
   }
 

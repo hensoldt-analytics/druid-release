@@ -528,7 +528,7 @@ public class QueryRunnerTestHelper
   public static IntervalChunkingQueryRunnerDecorator sameThreadIntervalChunkingQueryRunnerDecorator()
   {
     return new IntervalChunkingQueryRunnerDecorator(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.newDirectExecutorService(),
         QueryRunnerTestHelper.NOOP_QUERYWATCHER,
         new ServiceEmitter("dummy", "dummy", new NoopEmitter())
     );

@@ -91,7 +91,7 @@ public class CoordinatorBasedSegmentHandoffNotifierTest
     );
     final AtomicBoolean callbackCalled = new AtomicBoolean(false);
     notifier.registerSegmentHandoffCallback(
-        descriptor, MoreExecutors.sameThreadExecutor(), new Runnable()
+        descriptor, MoreExecutors.directExecutor(), new Runnable()
         {
           @Override
           public void run()
@@ -148,7 +148,7 @@ public class CoordinatorBasedSegmentHandoffNotifierTest
     );
 
     notifier.registerSegmentHandoffCallback(
-        descriptor, MoreExecutors.sameThreadExecutor(), new Runnable()
+        descriptor, MoreExecutors.directExecutor(), new Runnable()
         {
           @Override
           public void run()

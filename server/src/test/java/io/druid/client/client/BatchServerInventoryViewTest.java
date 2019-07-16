@@ -118,7 +118,7 @@ public class BatchServerInventoryViewTest
 
     announcer = new Announcer(
         cf,
-        MoreExecutors.sameThreadExecutor()
+        MoreExecutors.newDirectExecutorService()
     );
     announcer.start();
 
@@ -339,7 +339,7 @@ public class BatchServerInventoryViewTest
     EasyMock.replay(callback);
 
     filteredBatchServerInventoryView.registerSegmentCallback(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.directExecutor(),
         callback,
         new Predicate<Pair<DruidServerMetadata, DataSegment>>()
         {

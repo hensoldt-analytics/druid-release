@@ -21,6 +21,7 @@ package io.druid.indexing.overlord;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Function;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ComparisonChain;
@@ -946,7 +947,7 @@ public class TaskLockbox
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this)
+      return MoreObjects.toStringHelper(this)
                     .add("taskLock", taskLock)
                     .add("taskIds", taskIds)
                     .toString();

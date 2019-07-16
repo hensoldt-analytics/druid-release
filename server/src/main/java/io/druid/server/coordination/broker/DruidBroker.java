@@ -53,7 +53,7 @@ public class DruidBroker
     this.serviceAnnouncer = serviceAnnouncer;
 
     serverInventoryView.registerSegmentCallback(
-        MoreExecutors.sameThreadExecutor(),
+        MoreExecutors.directExecutor(),
         new ServerView.BaseSegmentCallback()
         {
           @Override
