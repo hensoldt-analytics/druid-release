@@ -602,6 +602,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>io.tesla.aether</groupId>
+                <artifactId>aether-connector-okhttp</artifactId>
+                <version>0.0.11</version>
+            </dependency>
+            <dependency>
                 <groupId>org.eclipse.aether</groupId>
                 <artifactId>aether-api</artifactId>
                 <version>0.9.0.M2</version>
