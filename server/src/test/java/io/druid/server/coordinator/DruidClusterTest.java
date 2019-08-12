@@ -35,6 +35,7 @@ import org.junit.Test;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableSet;
@@ -123,6 +124,25 @@ public class DruidClusterTest
   @Before
   public void setup()
   {
+    Map<String, NavigableSet<ServerHolder>> historicals = new HashMap<>();
+    historicals.put("tier1",
+        Stream.of(
+            new ServerHolder(
+                new ImmutableDruidServer(
+                    new DruidServerMetadata("name1", "host1", null, 100L, ServerType.HISTORICAL, "tier1", 0),
+                    0L,
+                    ImmutableMap.of(
+                        "src1",
+                        dataSources.get("src1")
+                    ),
+                    ImmutableMap.of(
+                        "segment1",
+                        segments.get(0)
+                    )
+                ),
+                new LoadQueuePeonTester()
+            )
+        ).collect(Collectors.toCollection(() -> new TreeSet<>(Collections.reverseOrder()))));
     cluster = new DruidCluster(
         ImmutableSet.of(
             new ServerHolder(
@@ -141,26 +161,7 @@ public class DruidClusterTest
                 new LoadQueuePeonTester()
             )
         ),
-        ImmutableMap.of(
-            "tier1",
-            Stream.of(
-                new ServerHolder(
-                    new ImmutableDruidServer(
-                        new DruidServerMetadata("name1", "host1", null, 100L, ServerType.HISTORICAL, "tier1", 0),
-                        0L,
-                        ImmutableMap.of(
-                            "src1",
-                            dataSources.get("src1")
-                        ),
-                        ImmutableMap.of(
-                            "segment1",
-                            segments.get(0)
-                        )
-                    ),
-                    new LoadQueuePeonTester()
-                )
-            ).collect(Collectors.toCollection(() -> new TreeSet<>(Collections.reverseOrder())))
-        )
+        historicals
     );
   }
 
