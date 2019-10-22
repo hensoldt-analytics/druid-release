@@ -19,18 +19,15 @@
 
 package io.druid.metadata;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.base.Throwables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import io.druid.java.util.emitter.EmittingLogger;
-import io.druid.java.util.common.DateTimes;
-import io.druid.java.util.common.Pair;
-import io.druid.java.util.common.StringUtils;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.annotation.Nullable;
+
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.FoldController;
 import org.skife.jdbi.v2.Folder3;
@@ -43,13 +40,19 @@ import org.skife.jdbi.v2.tweak.HandleCallback;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import org.skife.jdbi.v2.util.ByteArrayMapper;
 
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Throwables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import io.druid.java.util.common.DateTimes;
+import io.druid.java.util.common.Pair;
+import io.druid.java.util.common.StringUtils;
+import io.druid.java.util.emitter.EmittingLogger;
 
 public abstract class SQLMetadataStorageActionHandler<EntryType, StatusType, LogType, LockType>
     implements MetadataStorageActionHandler<EntryType, StatusType, LogType, LockType>
@@ -58,10 +61,10 @@ public abstract class SQLMetadataStorageActionHandler<EntryType, StatusType, Log
 
   private final SQLMetadataConnector connector;
   private final ObjectMapper jsonMapper;
-  private final TypeReference entryType;
-  private final TypeReference statusType;
-  private final TypeReference logType;
-  private final TypeReference lockType;
+  private final TypeReference<EntryType> entryType;
+  private final TypeReference<StatusType> statusType;
+  private final TypeReference<LogType> logType;
+  private final TypeReference<LockType> lockType;
 
   private final String entryTypeName;
   private final String entryTable;
@@ -100,7 +103,7 @@ public abstract class SQLMetadataStorageActionHandler<EntryType, StatusType, Log
     return jsonMapper;
   }
 
-  protected TypeReference getStatusType()
+  protected TypeReference<StatusType> getStatusType()
   {
     return statusType;
   }

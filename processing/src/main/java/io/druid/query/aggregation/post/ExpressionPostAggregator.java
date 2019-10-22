@@ -19,6 +19,14 @@
 
 package io.druid.query.aggregation.post;
 
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +35,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+
 import io.druid.java.util.common.guava.Comparators;
 import io.druid.math.expr.Expr;
 import io.druid.math.expr.ExprMacroTable;
@@ -34,13 +43,6 @@ import io.druid.math.expr.Parser;
 import io.druid.query.aggregation.AggregatorFactory;
 import io.druid.query.aggregation.PostAggregator;
 import io.druid.query.cache.CacheKeyBuilder;
-
-import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ExpressionPostAggregator implements PostAggregator
 {
@@ -149,7 +151,7 @@ public class ExpressionPostAggregator implements PostAggregator
         aggregators.entrySet().stream().collect(
             Collectors.toMap(
                 entry -> entry.getKey(),
-                entry -> entry.getValue()::finalizeComputation
+                entry -> input -> entry.getValue().finalizeComputation(input)
             )
         )
     );

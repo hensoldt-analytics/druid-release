@@ -67,8 +67,7 @@
         <guice.version>4.1.0</guice.version>
         <jetty.version>9.3.27.v20190418</jetty.version>
         <jersey.version>1.19.3</jersey.version>
-        <jackson.version>2.9.9</jackson.version>
-        <jackson-databind.version>2.9.9.1</jackson-databind.version>
+        <jackson.version>2.10.0</jackson.version>
         <log4j.version>2.8.2</log4j.version>
         <!-- HttpClient has not yet been ported to Netty 4.x -->
         <netty3.version>3.10.6.Final</netty3.version>
@@ -374,7 +373,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind.version}</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -1003,7 +1002,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.15</version>
+                <version>1.16</version>
                 <executions>
                     <execution>
                         <id>check-java-api</id>
@@ -1200,7 +1199,6 @@
         <profile>
             <id>spark2</id>
             <properties>
-                <jackson.version>2.9.9</jackson.version>
                 <aws.sdk.version>1.11.143</aws.sdk.version>
             </properties>
         </profile>

@@ -60,22 +60,22 @@ public class BasicAuthUtils
   public final static int KEY_LENGTH = 512;
   public final static String ALGORITHM = "PBKDF2WithHmacSHA512";
 
-  public static final TypeReference AUTHENTICATOR_USER_MAP_TYPE_REFERENCE =
+  public static final TypeReference<Map<String, BasicAuthenticatorUser>> AUTHENTICATOR_USER_MAP_TYPE_REFERENCE =
       new TypeReference<Map<String, BasicAuthenticatorUser>>()
       {
       };
 
-  public static final TypeReference AUTHORIZER_USER_MAP_TYPE_REFERENCE =
+  public static final TypeReference<Map<String, BasicAuthorizerUser>> AUTHORIZER_USER_MAP_TYPE_REFERENCE =
       new TypeReference<Map<String, BasicAuthorizerUser>>()
       {
       };
 
-  public static final TypeReference AUTHORIZER_ROLE_MAP_TYPE_REFERENCE =
+  public static final TypeReference<Map<String, BasicAuthorizerRole>> AUTHORIZER_ROLE_MAP_TYPE_REFERENCE =
       new TypeReference<Map<String, BasicAuthorizerRole>>()
       {
       };
 
-  public static final TypeReference AUTHORIZER_USER_AND_ROLE_MAP_TYPE_REFERENCE =
+  public static final TypeReference<UserAndRoleMap> AUTHORIZER_USER_AND_ROLE_MAP_TYPE_REFERENCE =
       new TypeReference<UserAndRoleMap>()
       {
       };
