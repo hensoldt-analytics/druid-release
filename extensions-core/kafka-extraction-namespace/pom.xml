@@ -33,6 +33,7 @@
   </parent>
   <properties>
     <apache.kafka.version>0.10.2.0</apache.kafka.version>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
   <dependencies>
     <dependency>
