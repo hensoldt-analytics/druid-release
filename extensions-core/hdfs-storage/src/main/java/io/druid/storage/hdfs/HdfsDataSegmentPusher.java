@@ -119,7 +119,6 @@ public class HdfsDataSegmentPusher implements DataSegmentPusher
         size = CompressionUtils.zip(inDir, out);
       }
 
-      final String uniquePrefix = useUniquePath ? DataSegmentPusher.generateUniquePath() + "_" : "";
       final Path outIndexFile = new Path(StringUtils.format(
           "%s/%s/%d_index.zip",
           fullyQualifiedStorageDirectory,
